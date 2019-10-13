@@ -61,7 +61,6 @@ export default {
                     width: 100%;
                     h1 {
                         margin: 10px 0;
-                        color: #2b93b8;
                     }
                     p {
                         margin-top: 0;
@@ -77,6 +76,7 @@ export default {
                     font-size: 25px;
                     width: 130px;
                     align-self: flex-end;
+                    transition: all .5s;
                     &:hover {
                         background-color: #6fc9ee;
                     }
@@ -145,6 +145,37 @@ export default {
                     }
                     .big-info {
                         margin-top: 6px;
+                    }
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 980px) {
+        .home {
+            grid-template-columns: 100%;
+            grid-template-rows: 1fr 1fr;
+            .left {
+                grid-row: 1;
+                justify-content: center;
+                div {
+                    margin-right: auto;
+                    margin-left: auto;
+                    a {
+                        align-self: center;
+                    }
+                }
+            }
+            .right {
+                grid-column: 1;
+                grid-row: 2;
+                .event-box-home {
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 20px 0 20px auto;
+                    .date-box {
+                        max-width: 120px;
+                        margin-bottom: 10px;
                     }
                 }
             }
