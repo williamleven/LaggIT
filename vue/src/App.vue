@@ -20,5 +20,8 @@ export default {
 </script>
 
 <style lang="scss">
-
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
 </style>
