@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-
+      <!-- TODO: Upcoming events/next events, become a member -->
   </div>
 </template>
 

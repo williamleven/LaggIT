@@ -1,6 +1,6 @@
 <template>
     <div class="member">
-
+        <!-- TODO: Motivation and form -->
     </div>
 </template>
 
