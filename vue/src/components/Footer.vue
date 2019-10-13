@@ -1,7 +1,7 @@
 <template>
-    <divv class="footer">
+    <footer class="footer">
 
-    </divv>
+    </footer>
 </template>
 
 <script>
@@ -11,5 +11,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    footer {
+        width: 100%;
+        height: 200px;
+        background-color: #47b5dc;
+    }
 </style>
