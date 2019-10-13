@@ -1,20 +1,38 @@
 <template>
     <div class="navigation">
-        <div class="logo">
-            <img src="../assets/laggitlogo.png">
+        <div class="icons">
+            <div class="logo">
+                <img src="../assets/laggitlogo.png">
+            </div>
+            <MenuIcon @click="toggleMenu" class="toggle-menu-icon" title="Öppna Menyn"/>
         </div>
-        <nav>
+        <nav class="toggle-menu" :class="{'visible': showMenu}">
             <router-link to="/home">Hem</router-link>
             <router-link to="/events">Evenemang</router-link>
             <router-link to="/about">Om LaggIT</router-link>
-            <router-link class="become-member" to="/member">Bli Medlem!</router-link>
+            <router-link to="/member">Bli Medlem!</router-link>
         </nav>
     </div>
 </template>
 
 <script>
+import MenuIcon from 'vue-material-design-icons/Menu.vue'
+
 export default {
   name: 'Navigation',
+  data () {
+    return {
+      showMenu: false,
+    }
+  },
+  methods: {
+    toggleMenu () {
+      this.showMenu = !this.showMenu
+    },
+  },
+  components: {
+    MenuIcon,
+  },
 }
 </script>
 
@@ -22,7 +40,7 @@ export default {
 .navigation {
     width: 100%;
     height: auto;
-    background-color: #f8c66e;
+    background-color: #47b5dc;
     display: flex;
     justify-content: space-between;
     .logo {
@@ -39,18 +57,52 @@ export default {
             text-decoration: none;
             display: flex;
             align-items: center;
-            &:hover {
-                background-color: #fad89d;
-            }
-        }
-        .router-link-active {
-            background-color: #fad89d;
-        }
-        .become-member {
-            background-color: #47b5dc;
+            transition: all .5s;
             &:hover {
                 background-color: #6fc9ee;
             }
+        }
+        .router-link-active {
+            background-color: #6fc9ee;
+        }
+    }
+    .toggle-menu-icon {
+        display: none;
+    }
+}
+@media only screen and (max-width: 720px) {
+    .navigation {
+        display: flex;
+        flex-direction: column;
+        justify-content: initial;
+        .icons {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            .toggle-menu-icon {
+                display: block;
+                font-size: 70px;
+                align-self: center;
+                svg {
+                    position: static;
+                    color: #176b8a;
+                    cursor: pointer;
+                    transition: all .5s;
+                    &:hover {
+                        color: #074055;
+                    }
+                }
+            }
+        }
+        .toggle-menu {
+            display: none;
+            a {
+                display: flex;
+                justify-content: center;
+            }
+        }
+        .visible {
+            display: block;
         }
     }
 }
