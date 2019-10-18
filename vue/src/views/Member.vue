@@ -20,6 +20,8 @@
                         <input type="text" name="last-name" id="last-name">
                     </div>
                 </div>
+                <label class="input-distance" for="personnumber">Personnummer</label>
+                <input type="text" name="nick-name" id="personnumber">
                 <label class="input-distance" for="first-name">Nickname</label>
                 <input type="text" name="nick-name" id="nick-name">
                 <div class="input-duo input-distance">
@@ -40,7 +42,7 @@
                         <input type="text" name="postcode" id="postcode">
                     </div>
                     <div>
-                        <label for="first-name">Land</label>
+                        <label for="first-name">Ort</label>
                         <input type="text" name="country" id="country">
                     </div>
                 </div>
@@ -61,7 +63,7 @@ export default {
     .member {
         display: grid;
         grid-template-columns: 45% 55%;
-        min-height: 80vh;
+        min-height: 90vh;
         .left {
             grid-column: 1;
             background-color: #074055;
@@ -75,7 +77,7 @@ export default {
                 width: 70%;
                 margin-right: 30px;
                 h2 {
-                    margin: 10px 0;
+                    margin: 0  0 10px 0;
                 }
                 p {
                     margin-top: 0;
@@ -90,6 +92,7 @@ export default {
             flex-direction: column;
             h2 {
                 margin-left: 30px;
+                margin-top: 0;
             }
             form {
                 width: 70%;
