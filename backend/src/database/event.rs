@@ -1,9 +1,9 @@
-use chrono::Local;
-use diesel::result::QueryResult as Result;
-use diesel::prelude::*;
-use crate::models::event::EventWithSignups as EventWS;
 use crate::database::DatabaseConn;
-
+use crate::models::event::EventWithSignups as EventWS;
+use chrono::Local;
+use diesel::prelude::*;
+use diesel::result::QueryResult as Result;
+use std::collections::HashMap;
 
 pub fn get_event_ws(connection: DatabaseConn, id: i32, published_only: bool) -> Result<EventWS> {
     use crate::schema::views::events_with_signups::dsl::{events_with_signups, published};
@@ -14,12 +14,16 @@ pub fn get_event_ws(connection: DatabaseConn, id: i32, published_only: bool) -> 
         .first(&connection)?)
 }
 
-
-pub fn get_event_ws_range(connection: DatabaseConn, low: i64, high: i64, published_only: bool) -> Result<Vec<EventWS>> {
+pub fn get_event_ws_range(
+    connection: DatabaseConn,
+    low: i64,
+    high: i64,
+    published_only: bool,
+) -> Result<HashMap<i64, EventWS>> {
     use crate::schema::views::events_with_signups::dsl::*;
 
     assert!(high > low);
-    
+
     let now = Local::now().naive_local();
 
     let mut previous: Vec<EventWS> = if low < 0 {
@@ -60,8 +64,18 @@ pub fn get_event_ws_range(connection: DatabaseConn, low: i64, high: i64, publish
         }
     }
 
-    upcoming.reverse();
+    let mut map: HashMap<i64, EventWS> = HashMap::new();
 
-    upcoming.append(&mut previous);
-    Ok(upcoming)
+    for (i, ev) in upcoming.into_iter().enumerate() {
+        map.insert(i as i64 + 1, ev);
+    }
+    for (i, ev) in previous.into_iter().enumerate() {
+        map.insert(-(i as i64) - 1, ev);
+    }
+
+    //upcoming.reverse();
+
+    //upcoming.append(&mut previous);
+    //Ok(upcoming)
+    Ok(map)
 }

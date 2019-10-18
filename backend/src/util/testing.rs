@@ -14,6 +14,8 @@ pub fn generate_new_events(old: usize, new: usize) -> Vec<NewEvent> {
     let new_event = |time, p| -> NewEvent {
         NewEvent {
             title: "My Event".into(),
+            description: "This is an event where we do things for fun yo".into(),
+            short_description: "Dis be event yo".into(),
             background: "http://site/image.png".into(),
             location: "Somewhere".into(),
             start_time: time,

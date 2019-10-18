@@ -19,6 +19,8 @@ table! {
         end_time -> Timestamp,
         price -> Int4,
         published -> Bool,
+        description -> Text,
+        short_description -> Text,
     }
 }
 

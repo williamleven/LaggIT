@@ -12,6 +12,8 @@ table! {
         price -> Int4,
         published -> Bool,
         signups -> Int8,
+        description -> Text,
+        short_description -> Text,
     }
 }
 

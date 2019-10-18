@@ -1,6 +1,7 @@
 use super::context::Context;
 use crate::database::event::{get_event_ws, get_event_ws_range};
 use crate::models::event::{Event, EventWithSignups as EventWS, NewEvent};
+use crate::models::graphql::IndexedEvent;
 use crate::models::signup::{NewSignup, Signup};
 use diesel::prelude::*;
 use juniper::{graphql_object, graphql_value, FieldError, FieldResult};
@@ -23,7 +24,7 @@ graphql_object!(RootQuery: Context |&self| {
         )?)
     }
 
-    field events(&executor, low: i32, high: i32) -> FieldResult<Vec<EventWS>>
+    field events(&executor, low: i32, high: i32) -> FieldResult<Vec<IndexedEvent>>
         as "Get a number of past and/or future events" {
         let has_auth = gql_auth!(executor, Events(List(Read))).is_ok();
 
@@ -39,7 +40,9 @@ graphql_object!(RootQuery: Context |&self| {
             low.into(),
             high.into(),
             !has_auth,
-        )?)
+        )?.into_iter()
+            .map(IndexedEvent::from)
+            .collect())
     }
 
     field signup(&executor, id: i32) -> FieldResult<Signup> {
