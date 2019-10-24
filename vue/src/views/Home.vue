@@ -68,17 +68,17 @@ export default {
                     }
                 }
                 a {
-                    background-color: #47b5dc;
+                    background-color: #074055;
                     padding: 30px 70px;
                     border-radius: 3px;
                     text-decoration: none;
-                    color: black;
+                    color: white;
                     font-size: 25px;
                     width: 130px;
-                    align-self: flex-end;
+                    align-self: center;
                     transition: all .5s;
                     &:hover {
-                        background-color: #6fc9ee;
+                        background-color: #052c3a;
                     }
                 }
             }

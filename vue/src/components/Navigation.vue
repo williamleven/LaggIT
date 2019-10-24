@@ -46,18 +46,19 @@ export default {
     .logo {
         margin: 10px;
         img {
-            height: 50px;
+            height: 30px;
         }
     }
     nav {
         display: flex;
         a {
-            color: black;
+            color: white;
             padding: 15px 35px;
             text-decoration: none;
             display: flex;
             align-items: center;
             transition: all .5s;
+            cursor: pointer;
             &:hover {
                 background-color: #6fc9ee;
             }

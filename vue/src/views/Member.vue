@@ -124,15 +124,16 @@ export default {
                 }
                 button {
                     margin-top: 20px;
-                    background-color: #47b5dc;
+                    background-color: #074055;
                     border: none;
-                    height: 40px;
-                    font-size: 17px;
+                    height: 50px;
+                    font-size: 20px;
                     border-radius: 3px;
                     transition: all .5s;
-                    cursor: pointer;
+                    color: white;
                     &:hover {
-                        background-color: #6fc9ee;
+                        background-color: #052c3a;
+                        cursor: pointer;
                     }
                 }
             }
