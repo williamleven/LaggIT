@@ -60,83 +60,85 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .member {
-        display: grid;
-        grid-template-columns: 45% 55%;
-        min-height: 90vh;
-        .left {
-            grid-column: 1;
-            background-color: #074055;
-            color: white;
+@import "../assets/theme";
+
+.member {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    min-height: 90vh;
+    .left {
+        grid-column: 1;
+        background-color: $background-color;
+        color: white;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        div {
             display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            div {
-                display: flex;
-                flex-direction: column;
-                width: 70%;
-                margin-right: 30px;
-                h2 {
-                    margin: 0  0 10px 0;
-                }
-                p {
-                    margin-top: 0;
-                    margin-bottom: 20px;
-                }
+            flex-direction: column;
+            width: 70%;
+            margin-right: 30px;
+            h2 {
+                margin: 0  0 10px 0;
+            }
+            p {
+                margin-top: 0;
+                margin-bottom: 20px;
             }
         }
-        .right {
-            grid-column: 2;
+    }
+    .right {
+        grid-column: 2;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        h2 {
+            margin-left: 30px;
+            margin-top: 0;
+        }
+        form {
+            width: 70%;
             display: flex;
-            justify-content: center;
             flex-direction: column;
-            h2 {
-                margin-left: 30px;
-                margin-top: 0;
+            margin-left: 30px;
+            input {
+                height: 21px;
+                padding-left: 2px;
+                font-size: 17px;
             }
-            form {
-                width: 70%;
-                display: flex;
-                flex-direction: column;
-                margin-left: 30px;
-                input {
-                    height: 21px;
-                    padding-left: 2px;
-                    font-size: 17px;
+            .input-duo {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 10px;
+                div {
+                    display: flex;
+                    flex-direction: column;
                 }
-                .input-duo {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    grid-gap: 10px;
-                    div {
-                        display: flex;
-                        flex-direction: column;
-                    }
-                    > div:first-of-type {
-                        grid-column: 1;
-                    }
-                    > div:last-of-type {
-                        grid-column: 2;
-                    }
+                > div:first-of-type {
+                    grid-column: 1;
                 }
-                .input-distance {
-                    margin-top: 15px;
+                > div:last-of-type {
+                    grid-column: 2;
                 }
-                button {
-                    margin-top: 20px;
-                    background-color: #074055;
-                    border: none;
-                    height: 50px;
-                    font-size: 20px;
-                    border-radius: 3px;
-                    transition: all .5s;
-                    color: white;
-                    &:hover {
-                        background-color: #052c3a;
-                        cursor: pointer;
-                    }
+            }
+            .input-distance {
+                margin-top: 15px;
+            }
+            button {
+                margin-top: 20px;
+                background-color: $button-base-color;
+                border: none;
+                height: 50px;
+                font-size: 20px;
+                border-radius: 3px;
+                transition: all .5s;
+                color: white;
+                &:hover {
+                    background-color: $button-hover-color;
+                    cursor: pointer;
                 }
             }
         }
     }
+}
 </style>
