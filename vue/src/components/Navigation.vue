@@ -58,9 +58,9 @@ export default {
             display: flex;
             align-items: center;
             transition: all .5s;
-            cursor: pointer;
             &:hover {
                 background-color: #6fc9ee;
+                cursor: pointer;
             }
         }
         .router-link-active {
