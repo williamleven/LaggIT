@@ -13,4 +13,10 @@ pub struct Member {
     pub first_name: String,
     pub last_name: String,
     pub nickname: Option<String>,
+    pub pid: String,
+    pub email: String,
+    pub phone_number: String,
+    pub address: String,
+    pub zip_code: String,
+    pub city: String,
 }

@@ -113,6 +113,9 @@ mod tests {
 
         let new_event = json!({
             "title": "Test Event",
+            "description": "Test Description",
+            "shortDescription": "Test Short Description",
+            "title": "Test Event",
             "background": "http://test.ru/jpg.png",
             "location": "Foobar CA",
             "startTime": 10_000_000_000i64,
@@ -129,14 +132,16 @@ mod tests {
                     "operationName": "CreateEvent",
                     "query": "mutation CreateEvent($ev:NewEvent!) {\n\
                             createEvent(newEvent: $ev) {\n\
-                                id        \n\
-                                title     \n\
-                                background\n\
-                                location  \n\
-                                startTime \n\
-                                endTime   \n\
-                                price     \n\
-                                published \n\
+                                id               \n\
+                                title            \n\
+                                description      \n\
+                                shortDescription \n\
+                                background       \n\
+                                location         \n\
+                                startTime        \n\
+                                endTime          \n\
+                                price            \n\
+                                published        \n\
                             }\n\
                         }",
                     "variables": {
@@ -182,6 +187,8 @@ mod tests {
 
         let new_event = NewEvent {
             title: "Test Event 2".into(),
+            description: "Come to this event!".into(),
+            short_description: "Blergh".into(),
             background: "http://image.ru/png.jpg".into(),
             location: "Fizzbuzz TX".into(),
             start_time: NaiveDateTime::from_timestamp(10_000_000_00i64, 0),
@@ -219,12 +226,14 @@ mod tests {
                 "operationName": "GetEvent",
                 "query": format!("query GetEvent {{\n\
                         event(id: {}) {{\n\
-                            id        \n\
-                            title     \n\
-                            background\n\
-                            startTime \n\
-                            endTime   \n\
-                            price     \n\
+                            id               \n\
+                            title            \n\
+                            description      \n\
+                            shortDescription \n\
+                            background       \n\
+                            startTime        \n\
+                            endTime          \n\
+                            price            \n\
                         }}\n\
                     }}", event.id),
                 })
@@ -247,6 +256,8 @@ mod tests {
 
         assert!(graphql_data.contains_key("id"));
         assert!(graphql_data.contains_key("title"));
+        assert!(graphql_data.contains_key("description"));
+        assert!(graphql_data.contains_key("shortDescription"));
         assert!(graphql_data.contains_key("background"));
         assert!(!graphql_data.contains_key("location"));
         assert!(graphql_data.contains_key("startTime"));
