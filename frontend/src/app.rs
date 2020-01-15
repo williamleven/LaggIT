@@ -1,5 +1,4 @@
 use crate::generated::css_classes::C;
-use crate::models::event::Event;
 use crate::page::{
     accounting::{AccountingMsg, AccountingPage},
     deposit::{DepositionMsg, DepositionPage},
@@ -7,6 +6,7 @@ use crate::page::{
     transactions::{TransactionsMsg, TransactionsPage},
     Page,
 };
+use chrono::{FixedOffset, Local};
 use laggit_api::{
     book_account::{BookAccount, BookAccountId, MasterAccounts},
     inventory::{
@@ -18,12 +18,10 @@ use laggit_api::{
 use seed::browser::service::fetch::FetchObject;
 use seed::prelude::*;
 use seed::*;
-use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::fmt::Debug;
 use std::rc::Rc;
 use web_sys;
-use chrono::{DateTime, Utc, Local, FixedOffset};
 
 #[derive(Clone, Default)]
 pub struct StateLoading {
@@ -32,14 +30,11 @@ pub struct StateLoading {
     pub transaction_history: Option<Vec<Transaction>>,
     pub inventory: Option<HashMap<InventoryItemId, Rc<InventoryItem>>>,
     pub bundles: Option<HashMap<InventoryBundleId, Rc<InventoryBundle>>>,
-    pub events: Option<BTreeMap<DateTime<Utc>, Vec<Event>>>,
     pub members: Option<HashMap<MemberId, Rc<Member>>>,
 }
 
 #[derive(Clone)]
 pub struct StateReady {
-    pub events: BTreeMap<DateTime<Utc>, Vec<Event>>,
-
     pub book_accounts: HashMap<BookAccountId, Rc<BookAccount>>,
     pub master_accounts: MasterAccounts,
 
@@ -82,7 +77,6 @@ impl Default for Model {
 
 #[derive(Clone, Debug)]
 pub enum FetchMsg {
-    Events(FetchObject<Vec<Event>>),
     Inventory(FetchObject<Vec<InventoryItem>>),
     Bundles(FetchObject<Vec<InventoryBundle>>),
     Transactions(FetchObject<Vec<Transaction>>),
@@ -163,7 +157,6 @@ pub fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
                                         transaction_history: Some(transaction_history),
                                         inventory: Some(inventory),
                                         bundles: Some(bundles),
-                                        events: Some(events),
                                         members: Some(members),
                                     } => {
                                         let data = StateReady {
@@ -172,7 +165,6 @@ pub fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
                                             transaction_history: transaction_history.clone(),
                                             inventory: inventory.clone(),
                                             bundles: bundles.clone(),
-                                            events: events.clone(),
                                             members: members.clone(),
                                             timezone: *Local::now().offset(),
                                         };
@@ -206,13 +198,6 @@ pub fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
 
             use FetchMsg::*;
             match msg {
-                Events(fetch) => handle_fetch(model, fetch, "event", |data, s| {
-                    let mut events: BTreeMap<DateTime<Utc>, Vec<Event>> = BTreeMap::new();
-                    for event in data {
-                        events.entry(event.start_time).or_default().push(event)
-                    }
-                    s.events = Some(events);
-                }),
                 Inventory(fetch) => handle_fetch(model, fetch, "inventory", |data, s| {
                     s.inventory = Some(vec_id_to_map!(data));
                 }),
@@ -312,7 +297,10 @@ pub fn view(model: &Model) -> Vec<Node<Msg>> {
                     div![class![C.not_found_message, C.unselectable], "404"]
                 }
             },
-            State::Loading(_) => div![class![C.text_center, C.mt_2], div![class![C.lds_heart], div![]]],
+            State::Loading(_) => div![
+                class![C.text_center, C.mt_2],
+                div![class![C.lds_heart], div![]]
+            ],
             State::LoadingFailed(msg, error) => div![
                 class![C.flex, C.flex_col],
                 p!["An has error occured."],
@@ -340,7 +328,6 @@ pub fn fetch_data(orders: &mut impl Orders<Msg>) {
     orders.perform_cmd(
         Request::new("/api/members").fetch_json(|data| Msg::Fetched(FetchMsg::Members(data))),
     );
-    orders.perform_cmd(fetch_events(-1, 2));
     orders.perform_cmd(
         Request::new("/api/inventory/items")
             .fetch_json(|data| Msg::Fetched(FetchMsg::Inventory(data))),
@@ -353,11 +340,6 @@ pub fn fetch_data(orders: &mut impl Orders<Msg>) {
         Request::new("/api/transactions")
             .fetch_json(|data| Msg::Fetched(FetchMsg::Transactions(data))),
     );
-}
-
-async fn fetch_events(low: i64, high: i64) -> Result<Msg, Msg> {
-    let url = format!("/api/events?low={}&high={}", low, high);
-    Request::new(url).fetch_json(|data| Msg::Fetched(FetchMsg::Events(data))).await
 }
 
 pub fn window_events(_model: &Model) -> Vec<Listener<Msg>> {

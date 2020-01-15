@@ -1,5 +1,6 @@
 pub mod book_account;
 pub mod event;
+pub mod graphql;
 pub mod inventory;
 pub mod signup;
 pub mod transaction;

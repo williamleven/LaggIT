@@ -12,6 +12,10 @@ graphql_object!(Event: Context |&self| {
 
     field title() -> &str { self.title.as_str() }
 
+    field description() -> &str { self.description.as_str() }
+
+    field short_description() -> &str { self.short_description.as_str() }
+
     field background() -> &str
         as "URL to an image" { self.background.as_str() }
 

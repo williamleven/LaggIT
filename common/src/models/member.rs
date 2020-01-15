@@ -15,6 +15,12 @@ pub struct Member {
     pub first_name: String,
     pub last_name: String,
     pub nickname: Option<String>,
+    pub pid: String,
+    pub email: String,
+    pub phone_number: String,
+    pub address: String,
+    pub zip_code: String,
+    pub city: String,
 }
 
 #[cfg_attr(feature = "serde_impl", derive(Serialize, Deserialize))]
@@ -24,4 +30,10 @@ pub struct NewMember {
     pub first_name: String,
     pub last_name: String,
     pub nickname: Option<String>,
+    pub pid: String,
+    pub email: String,
+    pub phone_number: String,
+    pub address: String,
+    pub zip_code: String,
+    pub city: String,
 }

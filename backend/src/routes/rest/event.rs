@@ -4,6 +4,7 @@ use crate::models::event::EventWithSignups as EventWS;
 use crate::util::status_json::StatusJson as SJ;
 use rocket::{get, State};
 use rocket_contrib::json::Json;
+use std::collections::HashMap;
 
 #[get("/event/<id>")]
 pub fn get_event(id: i32, db_pool: State<DatabasePool>) -> Result<Json<EventWS>, SJ> {
@@ -15,7 +16,7 @@ pub fn get_event_range(
     low: i64,
     high: i64,
     db_pool: State<DatabasePool>,
-) -> Result<Json<Vec<EventWS>>, SJ> {
+) -> Result<Json<HashMap<i64, EventWS>>, SJ> {
     Ok(Json(get_event_ws_range(
         db_pool.inner().get()?,
         low,

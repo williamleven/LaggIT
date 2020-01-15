@@ -178,11 +178,8 @@ mod tests {
             serde_json::from_str(&body).expect(&format!("Could not deserialize JSON: {}", body));
         assert!(data.is_object());
         let json = data.as_object().unwrap();
-        assert!(json.contains_key("user"));
-        assert_eq!(
-            json.get("user").unwrap().get("name").unwrap(),
-            &credentials.name
-        );
+        assert!(json.contains_key("name"));
+        assert!(json.contains_key("display_name"));
         assert_eq!(response.status(), Status::Ok);
     }
 }

@@ -164,6 +164,14 @@ impl DepositionPage {
                                                     "" => None,
                                                     nickname => Some(nickname.to_string()),
                                                 },
+
+                                                // TODO: Implement these
+                                                pid: String::new(),
+                                                email: String::new(),
+                                                phone_number: String::new(),
+                                                address: String::new(),
+                                                zip_code: String::new(),
+                                                city: String::new(),
                                             },
                                             acc_name.clone().unwrap_or(generate_tillgodo_acc_name(
                                                 first_name, nickname,

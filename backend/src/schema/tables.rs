@@ -19,6 +19,8 @@ table! {
         end_time -> Timestamptz,
         price -> Int4,
         published -> Bool,
+        description -> Text,
+        short_description -> Text,
     }
 }
 
@@ -70,6 +72,12 @@ table! {
         first_name -> Text,
         last_name -> Text,
         nickname -> Nullable<Text>,
+        pid -> Varchar,
+        email -> Varchar,
+        phone_number -> Varchar,
+        address -> Varchar,
+        zip_code -> Varchar,
+        city -> Varchar,
     }
 }
 

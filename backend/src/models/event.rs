@@ -35,6 +35,8 @@ pub struct EventWithSignups {
     pub price: i32,
     pub published: bool,
     pub signups: i64,
+    pub description: String,
+    pub short_description: String,
 }
 
 #[derive(Queryable, Serialize, Deserialize, Debug)]
@@ -47,6 +49,8 @@ pub struct Event {
     pub end_time: DateTime<Utc>,
     pub price: i32,
     pub published: bool,
+    pub description: String,
+    pub short_description: String,
 }
 
 #[derive(Insertable, GraphQLInputObject, Serialize, Deserialize, Debug)]
@@ -58,6 +62,8 @@ pub struct NewEvent {
     pub start_time: DateTime<Utc>,
     pub end_time: DateTime<Utc>,
     pub price: Option<i32>,
+    pub description: String,
+    pub short_description: String,
 }
 
 impl From<Event> for EventWithSignups {
@@ -65,6 +71,8 @@ impl From<Event> for EventWithSignups {
         EventWithSignups {
             id: event.id,
             title: event.title,
+            description: event.description,
+            short_description: event.short_description,
             background: event.background,
             location: event.location,
             start_time: event.start_time,
