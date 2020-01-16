@@ -31,4 +31,4 @@ log = "0.4.8"
 
 [dependencies.laggit_api]
 path = "../common"
-features = ["diesel_impl"]
+features = ["diesel_impl", "juniper_impl"]

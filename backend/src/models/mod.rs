@@ -5,6 +5,7 @@ pub mod inventory;
 pub mod signup;
 pub mod transaction;
 pub mod user;
+pub mod working_group;
 
 pub use self::event::{Event, EventRange, EventWithSignups, NewEvent};
 

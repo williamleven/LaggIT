@@ -1,4 +1,4 @@
-use crate::models::event::EventWithSignups as EventWS;
+use crate::models::event::Event;
 use crate::routes::graphql::context::Context;
 use juniper::graphql_object;
 use serde_derive::{Deserialize, Serialize};
@@ -7,7 +7,7 @@ use serde_derive::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct IndexedEvent {
     pub index: i64,
-    pub event: EventWS,
+    pub event: Event,
 }
 
 graphql_object!(IndexedEvent: Context |&self| {
@@ -15,13 +15,13 @@ graphql_object!(IndexedEvent: Context |&self| {
         self.index as i32
     }
 
-    field event() -> &EventWS {
+    field event() -> &Event {
         &self.event
     }
 });
 
-impl From<(i64, EventWS)> for IndexedEvent {
-    fn from((index, event): (i64, EventWS)) -> IndexedEvent {
+impl From<(i64, Event)> for IndexedEvent {
+    fn from((index, event): (i64, Event)) -> IndexedEvent {
         IndexedEvent { index, event }
     }
 }

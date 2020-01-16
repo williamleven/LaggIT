@@ -21,6 +21,7 @@ pub fn generate_new_events(old: usize, new: usize) -> Vec<NewEvent> {
             start_time: time,
             end_time: time + Duration::hours(2),
             price: Some(p),
+            published: false,
         }
     };
 

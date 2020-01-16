@@ -8,7 +8,7 @@ use std::collections::HashMap;
 
 #[get("/event/<id>")]
 pub fn get_event(id: i32, db_pool: State<DatabasePool>) -> Result<Json<EventWS>, SJ> {
-    Ok(Json(get_event_ws(db_pool.inner().get()?, id, true)?))
+    Ok(Json(get_event_ws(&db_pool.inner().get()?, id, true)?))
 }
 
 #[get("/events?<low>&<high>")]
@@ -18,7 +18,7 @@ pub fn get_event_range(
     db_pool: State<DatabasePool>,
 ) -> Result<Json<HashMap<i64, EventWS>>, SJ> {
     Ok(Json(get_event_ws_range(
-        db_pool.inner().get()?,
+        &db_pool.inner().get()?,
         low,
         high,
         true,

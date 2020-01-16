@@ -18,6 +18,8 @@ RUN cargo build --release
 ########################
 FROM debian:stable-slim
 
+EXPOSE 8000
+
 # Default to staging environment
 # Override with "production" when deploying for real
 ENV ROCKET_ENV="staging"

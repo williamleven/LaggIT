@@ -10,6 +10,7 @@ workspace = ".."
 
 [dependencies]
 chrono = "0.4"
+juniper = { version = "0.14", optional = true }
 diesel = { version = "1.4", optional = true }
 diesel_derives = { version = "1.4", optional = true }
 diesel-derive-enum = { version = "0.4", features = ["postgres"], optional = true }
@@ -24,6 +25,8 @@ default = ["serde_impl", "debug", "hash"]
 
 diesel_impl = ["diesel", "diesel_derives", "diesel-derive-enum", "diesel-derive-enum/postgres"]
 serde_impl = ["serde", "serde_derive", "chrono/serde"]
+
+juniper_impl = ["juniper"]
 
 debug = []
 eq = []

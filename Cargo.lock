@@ -720,6 +720,7 @@ dependencies = [
  "diesel-derive-enum",
  "diesel_derives",
  "getset",
+ "juniper",
  "lazy_static",
  "regex",
  "serde",

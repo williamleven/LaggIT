@@ -1,5 +1,6 @@
 use super::context::Context;
-use crate::models::event::EventWithSignups as Event;
+//use crate::models::event::EventWithSignups as Event;
+use crate::models::event::Event;
 use crate::models::signup::Signup;
 use chrono::{DateTime, Utc};
 use diesel::prelude::*;

@@ -1,3 +1,4 @@
+use crate::database::member::add_member;
 use crate::database::DatabasePool;
 use crate::util::status_json::StatusJson as SJ;
 use diesel::prelude::*;
@@ -24,18 +25,7 @@ pub fn add_member_with_book_account(
     let (new_member, account_name) = data.into_inner();
 
     connection.transaction::<_, SJ, _>(|| {
-        let member_id = {
-            use crate::schema::tables::members::dsl::*;
-
-            diesel::insert_into(members)
-                .values((
-                    first_name.eq(&new_member.first_name),
-                    last_name.eq(&new_member.last_name),
-                    nickname.eq(&new_member.nickname),
-                ))
-                .returning(id)
-                .get_result(&connection)?
-        };
+        let member_id = add_member(&connection, new_member)?.id;
 
         let acc_id = {
             use crate::schema::tables::book_accounts::dsl::*;

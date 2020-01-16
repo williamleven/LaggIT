@@ -39,7 +39,7 @@ pub struct EventWithSignups {
     pub short_description: String,
 }
 
-#[derive(Queryable, Serialize, Deserialize, Debug)]
+#[derive(Queryable, Identifiable, Serialize, Deserialize, Debug)]
 pub struct Event {
     pub id: i32,
     pub title: String,
@@ -53,7 +53,7 @@ pub struct Event {
     pub short_description: String,
 }
 
-#[derive(Insertable, GraphQLInputObject, Serialize, Deserialize, Debug)]
+#[derive(Insertable, AsChangeset, GraphQLInputObject, Serialize, Deserialize, Debug)]
 #[table_name = "events"]
 pub struct NewEvent {
     pub title: String,
@@ -62,6 +62,7 @@ pub struct NewEvent {
     pub start_time: DateTime<Utc>,
     pub end_time: DateTime<Utc>,
     pub price: Option<i32>,
+    pub published: bool,
     pub description: String,
     pub short_description: String,
 }

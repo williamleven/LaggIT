@@ -1,4 +1,6 @@
 pub mod event;
+pub mod member;
+pub mod working_group;
 
 use diesel::pg::PgConnection;
 use diesel::r2d2::ConnectionManager;

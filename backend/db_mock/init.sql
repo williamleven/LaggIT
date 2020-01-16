@@ -5,7 +5,7 @@
 -- Data for Name: event_signups; Type: TABLE DATA; Schema: public; Owner: postgres
 COPY public.event_signups (id, event, name, email) FROM stdin;
 \.
-SELECT setval('events_id_seq', 1, true);
+SELECT setval('events_id_seq', 25, true);
 
 -- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: postgres
 COPY public.events (id, title, background, location, start_time, end_time, price, published) FROM stdin;

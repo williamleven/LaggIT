@@ -82,6 +82,14 @@ table! {
 }
 
 table! {
+    text_content (tag, lang) {
+        tag -> Text,
+        lang -> Text,
+        text -> Text,
+    }
+}
+
+table! {
     transaction_bundles (id) {
         id -> Int4,
         transaction_id -> Int4,
@@ -119,6 +127,26 @@ table! {
     }
 }
 
+table! {
+    working_group (year) {
+        year -> Int4,
+    }
+}
+
+table! {
+    working_group_members (id) {
+        id -> Int4,
+        member_id -> Int4,
+    }
+}
+
+table! {
+    working_group_membership (year, working_group_member_id) {
+        year -> Int4,
+        working_group_member_id -> Int4,
+    }
+}
+
 joinable!(book_accounts -> members (creditor));
 joinable!(event_signups -> events (event));
 joinable!(inventory_bundle_items -> inventory (item_id));
@@ -127,6 +155,9 @@ joinable!(inventory_tags -> inventory (item_id));
 joinable!(transaction_bundles -> transactions (transaction_id));
 joinable!(transaction_items -> inventory (item_id));
 joinable!(transaction_items -> transaction_bundles (bundle_id));
+joinable!(working_group_members -> members (member_id));
+joinable!(working_group_membership -> working_group (year));
+joinable!(working_group_membership -> working_group_members (working_group_member_id));
 
 allow_tables_to_appear_in_same_query!(
     book_accounts,
@@ -137,8 +168,12 @@ allow_tables_to_appear_in_same_query!(
     inventory_bundles,
     inventory_tags,
     members,
+    text_content,
     transaction_bundles,
     transaction_items,
     transactions,
     users,
+    working_group,
+    working_group_members,
+    working_group_membership,
 );
